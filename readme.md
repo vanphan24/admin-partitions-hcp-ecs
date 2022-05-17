@@ -12,5 +12,33 @@ HCP account and Service Principle crentials.
 
 
 
+# Deploy Consul on ECS with Admin Partitions and HashiCups
+
+```
 export HCP_CLIENT_ID=YOUR_HCP_CLIENT_ID_GOES_HERE
 export HCP_CLIENT_SECRET=YOUR_HCP_CLIENT_SECRET_GOES_HERE
+```
+
+
+
+```deploy-ecs-hcp-ap/terraform init```
+
+```deploy-ecs-hcp-ap/terraform plan```
+
+```deploy-ecs-hcp-ap/terraform apply -auto-approve```
+
+Retreive VPC, subnet, SG values as environmental variables
+
+```
+export vpc_id=$(terraform output -json vpc_id)
+export subnet1=$(terraform output -json private_subnet | jq '.[0]')
+export subnet2=$(terraform output -json private_subnet | jq '.[1]')
+export subnet3=$(terraform output -json private_subnet | jq '.[2]')
+```
+
+
+# Deploy Consul Client on EKS
+
+1) Deploy a new EKS Cluster. You can 
+
+Use eksctl 
