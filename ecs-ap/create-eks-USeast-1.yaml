@@ -1,0 +1,47 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eksctl-USeast1-client-adminpart1
+  region: us-east-1
+
+vpc:
+  id: ""vpc-08846fdbff71b27d8""
+  sharedNodeSecurityGroup: "sg-0474eb4d1be0062e4"
+
+  subnets:
+    public:
+      us-east-1a:
+        id: ""
+      us-east-1b:
+        id: ""
+      us-east-1c:
+        id: ""
+
+iam:
+  serviceRoleARN: "arn:aws:iam::711129375688:role/eks-cluster-role-van"
+
+managedNodeGroups:
+  - name: "nodegroup-test"
+    amiFamily: AmazonLinux2
+    instanceType: t3.medium
+    volumeSize: 20
+    subnets:
+      - 
+      - 
+      - 
+
+    desiredCapacity: 3
+    minSize: 3
+    maxSize: 3
+    iam:
+      instanceRoleARN: "arn:aws:iam::711129375688:role/eks-worker-node-paris-van"
+    ssh:
+      allow: true
+      publicKeyName: "van-ssh-keypair-NVirginia"
+      enableSsm: true
+      #Node role needs to have "AmazonSSMManagedInstanceCore" in order to SSM into ec2 instance
+
+    securityGroups:
+      attachIDs:
+        - sg-0474eb4d1be0062e4
